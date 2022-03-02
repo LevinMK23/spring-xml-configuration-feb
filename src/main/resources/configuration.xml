@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="datasource" class="ru.learnUp.feb.Datasource"/>
+    <bean id="httpClient" class="ru.learnUp.feb.HttpClient"/>
+    <bean id="imageService" class="ru.learnUp.feb.ImageService"/>
+
+    <bean id="modelsRepository" class="ru.learnUp.feb.ModelsRepository">
+        <constructor-arg ref="datasource"/>
+    </bean>
+
+    <bean id="modelsService" class="ru.learnUp.feb.ModelsService">
+        <constructor-arg ref="modelsRepository"/>
+        <constructor-arg ref="httpClient"/>
+    </bean>
+
+</beans>
