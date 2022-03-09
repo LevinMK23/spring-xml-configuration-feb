@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
 
     <bean id="datasource" class="ru.learnUp.feb.Datasource"/>
     <bean id="httpClient" class="ru.learnUp.feb.HttpClient"/>
@@ -15,5 +22,34 @@
         <constructor-arg ref="modelsRepository"/>
         <constructor-arg ref="httpClient"/>
     </bean>
+
+    <bean id="test" class="ru.learnUp.feb.beans.Test"/>
+
+    <bean id="b" class="ru.learnUp.feb.beans.B">
+        <constructor-arg value="${my.tag.value}"/>
+        <property name="version" value="${my.version.value}"/>
+    </bean>
+
+    <bean id="myEventListener" class="ru.learnUp.feb.events.MyEventListener"/>
+    <bean id="myEventPublisher" class="ru.learnUp.feb.events.MyEventPublisher"/>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="text"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!--    option + enter / alt + insert -->
+    <!--    <bean-->
+    <!--            destroy-method="destroyMe"-->
+    <!--            init-method="initMe"-->
+    <!--            id="a"-->
+    <!--            class="ru.learnUp.feb.beans.A">-->
+    <!--        <constructor-arg name="b" ref="b"/>-->
+    <!--    </bean>-->
+    <bean id="a" class="ru.learnUp.feb.beans.A">
+        <constructor-arg name="b" ref="b"/>
+    </bean>
+
+
 
 </beans>
